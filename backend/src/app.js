@@ -20,8 +20,12 @@ const PORT = process.env.PORT || 5000;
 // Security Middlewares
 app.use(helmet());
 
+const allowedOrigins = process.env.FRONTEND_ORIGIN
+  ? process.env.FRONTEND_ORIGIN.split(',').map(o => o.trim())
+  : ['http://localhost:5173', 'http://localhost:5174'];
+
 const corsOptions = {
-  origin: process.env.FRONTEND_ORIGIN || 'http://localhost:5173',
+  origin: allowedOrigins,
   credentials: true,
   optionsSuccessStatus: 200
 };
